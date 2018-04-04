@@ -1,6 +1,8 @@
 *.pdf
 .idea
 *Younas*
+*.ppt*
+*work*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

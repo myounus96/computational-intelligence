@@ -7,8 +7,6 @@ n = 25;
 c1 = c2 = 2
 
 nList = [];
-GList = [];
-data = []
 
 # init population
 for i in range(n):
@@ -20,10 +18,14 @@ for i in range(n):
 l_best = [];
 g_best = 0;
 p_best = 0;
-p_best_list = [{}] * n;
-velocities = [{'x': 0, 'y': 0}] * n
+p_best_list = []
+velocities = []
+
+for i in range(n):
+    velocities.append({'x': 0, 'y': 0})
 
 for ind, j in enumerate(nList):
+    p_best_list.append({})
     p_best_list[ind][j[2]] = j
 
 l_best.append((sorted(nList, key=lambda i: i[2], reverse=True))[0])
@@ -41,40 +43,17 @@ for i in range(G):
         velocities[ind]['x'] = velocities[ind]['x'] + c1 * random.uniform(0, 1) * (
             p_best_x - j[0]) + c2 * random.uniform(0, 1) * (g_best[0] - j[0])
 
-        if velocities[ind]['x'] > 2:
-            velocities[ind]['x'] = 2
 
-        if velocities[ind]['x'] < -2:
-            velocities[ind]['x'] = -2
-
-
-        j[0] += velocities[ind]['x']
-
-
-        if j[0] > 2:
-            j[0] = 2
-
-        if j[0] < -2:
-            j[0] = -2
+        if j[0] + velocities[ind]['x'] >= -2 and j[0] + velocities[ind]['x'] <= 2:
+            j[0] += velocities[ind]['x']
 
         p_best_y = p_best_list[ind][max(p_best_list[ind].keys())][1]
 
         velocities[ind]['y'] = velocities[ind]['y'] + c1 * random.uniform(0, 1) * (
             p_best_y - j[1]) + c2 * random.uniform(0, 1) * (g_best[1] - j[1])
 
-        if velocities[ind]['y'] > 3:
-            velocities[ind]['y'] = 3
-
-        if velocities[ind]['y'] < -1:
-            velocities[ind]['y'] = -1
-
-        j[1] += velocities[ind]['y']
-
-        if j[1] > 3:
-            j[1] = 3
-
-        if j[1] < -1:
-            j[1] = -1
+        if j[1] + velocities[ind]['y'] >= -1 and j[1] + velocities[ind]['y'] <= 3:
+            j[1] += velocities[ind]['y']
 
         j[2] = fit_func(j[0], j[1])
 

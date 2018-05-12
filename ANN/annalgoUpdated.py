@@ -149,7 +149,7 @@ for i in data:
     final_ansr.append(out6 * 20000)
 
 
-final_ansr=final_ansr[-len(data):]
+# final_ansr=final_ansr[-len(data):]
 
 df['Y-ANN']=pd.DataFrame(final_ansr)
 df.to_csv('NN-DATA2.csv',index=False)
